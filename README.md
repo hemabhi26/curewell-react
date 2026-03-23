@@ -1,70 +1,210 @@
-# Getting Started with Create React App
+# 🏥 CureWell - Hospital Management System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+CureWell is a full-stack **Hospital Management Web Application** built using **React, Node.js, and SQLite**. It helps hospital administrators manage doctors, specializations, and surgeries efficiently.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Tech Stack
 
-### `npm start`
+* **Frontend:** React.js
+* **Backend:** Node.js + Express.js
+* **Database:** SQLite
+* **Styling:** CSS
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📌 Features
 
-### `npm test`
+### 👨‍⚕️ Doctor Management
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* View all doctors
+* Add a new doctor with specialization
+* Update doctor details
+* Delete a doctor
+* Filter doctors by specialization
 
-### `npm run build`
+### 🧬 Specialization Management
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* View all specializations
+* View doctors under a specific specialization
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 🏥 Surgery Management
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* View today's surgeries
+* Add new surgery
+* Update surgery timings
+* Validation: Start time must be less than end time
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 📂 Project Structure
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+curewell/
+│── src/
+│   ├── components/
+│   ├── services/
+│   ├── App.js
+│   ├── index.js
+│   └── index.css
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+curewell-backend/
+│── src/
+│   ├── config/
+│   ├── api/
+│   │   ├── models/
+│   │   ├── controllers/
+│   │   └── routes/
+│── server.js
+│── curewell.db
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🗄️ Database
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* SQLite database (`curewell.db`) is created automatically
+* No installation required
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Tables:
 
-### Code Splitting
+* Doctor
+* Specialization
+* DoctorSpecialization
+* Surgery
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## 🔗 API Endpoints
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 👨‍⚕️ Doctors
 
-### Making a Progressive Web App
+* `GET /api/doctors` → Get all doctors
+* `POST /api/doctors` → Add doctor
+* `PUT /api/doctors` → Update doctor
+* `DELETE /api/doctors?doctorId=ID` → Delete doctor
+* `GET /api/doctors/by-specialization?specializationCode=CODE`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 🧬 Specializations
 
-### Advanced Configuration
+* `GET /api/specializations`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 🏥 Surgeries
 
-### Deployment
+* `GET /api/surgeries/today`
+* `POST /api/surgeries`
+* `PUT /api/surgeries`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## ⚙️ Setup Instructions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 🔹 Backend Setup
+
+```bash
+cd curewell-backend
+npm install
+node server.js
+```
+
+Runs on: **[http://localhost:5000](http://localhost:5000)**
+
+---
+
+### 🔹 Frontend Setup
+
+```bash
+cd curewell
+npm install
+npm start
+```
+
+Runs on: **[http://localhost:3000](http://localhost:3000)**
+
+---
+
+## 🔄 Application Flow
+
+```
+React (Frontend)
+   ↓
+API Calls (services/api.js)
+   ↓
+Express Routes
+   ↓
+Controllers
+   ↓
+Models (SQL Queries)
+   ↓
+SQLite Database
+```
+
+---
+
+## ⏱️ Surgery Time Handling
+
+* Stored as **total minutes** in database
+* Converted to **HH:MM format** in UI
+
+| Time  | Stored Value |
+| ----- | ------------ |
+| 09:00 | 540          |
+| 14:00 | 840          |
+
+---
+
+## 🧪 Sample Data
+
+### Doctors
+
+* 1001 - Albert
+* 1002 - Olivia
+* 1003 - Susan
+
+### Specializations
+
+* GYN - Gynecologist
+* CAR - Cardiologist
+* ANE - Anesthesiologist
+
+---
+
+## 📊 Viewing Data
+
+* Open in browser:
+
+  * [http://localhost:5000/api/doctors](http://localhost:5000/api/doctors)
+  * [http://localhost:5000/api/specializations](http://localhost:5000/api/specializations)
+  * [http://localhost:5000/api/surgeries/today](http://localhost:5000/api/surgeries/today)
+
+* Or use:
+
+  * DB Browser for SQLite
+  * VS Code SQLite extension
+
+---
+
+## ⚠️ Important Notes
+
+* Database auto-creates on first run
+* Deleting DB resets all data
+* Backend & frontend must run together
+* Ports:
+
+  * Frontend → 3000
+  * Backend → 5000
+
+---
+
+## 🚀 Future Improvements
+
+* Authentication (Login/Register)
+* Role-based access
+* Better UI/UX
+* Deployment
+
+---
+
+## 👨‍💻 Author
+
+**Hemanth Abhinav**
